@@ -1,3 +1,3 @@
-from api.services.routes import init_app as init_services
-from api.services.report_service import ReportService
-__all__ = ["init_services", "ReportService"]
+from .routes import init_app
+from .report_service import ReportService
+__all__ = ["init_app", "ReportService"]

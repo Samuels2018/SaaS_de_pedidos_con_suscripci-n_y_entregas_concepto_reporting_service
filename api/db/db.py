@@ -6,10 +6,13 @@ from typing import Any
 def set_db () -> Database[Any]:
   """ connection to the database """
   # MongoDB connection string
-  mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+  mongo_db_name = os.getenv("MONGO_DB", "reporting_db")
+  mongo_db_host = os.getenv("MONGO_DB_HOST", "localhost")
+  mongo_db_port = os.getenv("MONGO_DB_PORT", "27017")
+  mongo_uri = f'mongodb://{mongo_db_host}:{mongo_db_port}/{mongo_db_name}'
   client: MongoClient = MongoClient(
     mongo_uri,
-    tls=True,  # Para conexiones seguras
+    tls=False,  # Para conexiones seguras
     retryWrites=True,
     w="majority",
     appname="ReportingService",

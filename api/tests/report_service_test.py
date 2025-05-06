@@ -8,7 +8,7 @@ from api import db
 @pytest.fixture
 def mock_db() -> Generator[MagicMock, None, None]:
   """Fixture para simular la base de datos"""
-  with patch('app.services.report_service.db.set_db') as mock_set_db:
+  with patch('api.db.set_db') as mock_set_db:
     mock_db = MagicMock()
     mock_set_db.return_value = mock_db
     yield mock_db
@@ -108,7 +108,7 @@ def test_get_monthly_usage_with_dates(mock_db, sample_usage_data) -> None:
 
 
 def test_get_monthly_usage_default_dates(mock_db) -> None:
-  """Test para get_monthly_usage con fechas por defecto"""
+  #Test para get_monthly_usage con fechas por defecto
   # Configurar el mock
   mock_db.usage_metrics.aggregate.return_value = []
 
@@ -125,7 +125,7 @@ def test_get_monthly_usage_default_dates(mock_db) -> None:
   assert "$lte" in pipeline[0]["$match"]["timestamp"]
 
 def test_get_monthly_usage_empty_result(mock_db) -> None:
-  """Test para get_monthly_usage sin resultados"""
+  #Test para get_monthly_usage sin resultados
   mock_db.usage_metrics.aggregate.return_value = []
   
   result = ReportService.get_monthly_usage(
@@ -137,7 +137,7 @@ def test_get_monthly_usage_empty_result(mock_db) -> None:
 
 
 def test_get_subscriptions(mock_db, sample_subscriptions_data) -> None:
-  """Test para get_subscriptions"""
+  #Test para get_subscriptions
   # Configurar el mock
   mock_db.subscriptions.aggregate.return_value = [
     {
@@ -173,7 +173,7 @@ def test_get_subscriptions(mock_db, sample_subscriptions_data) -> None:
 
 
 def test_get_subscriptions_empty_result(mock_db) -> None:
-  """Test para get_subscriptions sin resultados"""
+  #Test para get_subscriptions sin resultados
   mock_db.subscriptions.aggregate.return_value = []
   
   result = ReportService.get_subscriptions()
@@ -183,7 +183,7 @@ def test_get_subscriptions_empty_result(mock_db) -> None:
 
 @pytest.mark.integration
 def test_get_monthly_usage_integration():
-    """Test de integración con MongoDB real"""
+  #Test de integración con MongoDB real
     
     # Insertar datos de prueba
     db_model = db.set_db()

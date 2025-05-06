@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, jsonify, request, Response
-from flask_cache import Cache
+from flask_caching import Cache
 from api.services.report_service import ReportService
 from datetime import datetime
 from typing import Any, cast
